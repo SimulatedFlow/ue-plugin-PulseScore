@@ -1,0 +1,27 @@
+{
+	"FileVersion": 3,
+	"Version": 1,
+	"VersionName": "1.0.0",
+	"EngineVersion": "5.8.0",
+	"FriendlyName": "PulseScore - Adaptive Music Director",
+	"Description": "Quartz and MetaSounds give you the building blocks of adaptive music. They do not give you a conductor. PulseScore is the layer above them: the game reports a state - SetIntensity(0.7), EnterSection(\"Combat\"), TriggerStinger(\"Ambush\") - and PulseScore decides which stems play at what volume and switches on the beat instead of in the middle of one. Every switch is quantised. Each call carries a boundary - Immediate, Beat, Bar, TwoBars or SectionEnd, with Bar as the project default - and the transition is scheduled on a Quartz clock, so it lands sample-accurately on that boundary rather than wherever a SetTimer happened to fire. Intensity mixes, it does not switch: every layer owns an intensity window with a soft edge, and a layer outside its window keeps playing silently instead of being stopped, so when it comes back it is still phase-locked to every other stem. That is the whole trick of layered music, and stopping the layer is the mistake that breaks it. A stinger ducks the layers marked for it through an attack-hold-release envelope and restores them exactly where they were. Section changes are validated against the allowed-next list the score author wrote, so an illegal transition is refused and logged instead of silently taken. A Canvas overlay that survives a Shipping build prints bar and beat, the current and pending section with a countdown to the switch, tempo, intensity, the duck amount and a gain bar per layer - because an audio plugin with nothing on screen is an audio plugin nobody can screenshot. Console commands PulseScore.Show, PulseScore.Stats, PulseScore.Intensity, PulseScore.Section, PulseScore.Stinger and PulseScore.Stop. The selection maths - which layer is how loud at intensity x, when the next boundary falls, whether a transition is legal, what a duck does to a gain set - lives in static Blueprint library functions with no world and no subsystem behind them, so it is unit-tested and you can call it from anywhere. What this is not: PulseScore does not compose and it does not synthesise. It plays and mixes the USoundBase assets you already have - MetaSounds, Sound Cues, looping waves - and every note in it is yours. No UMG in the product, no Niagara, no editor module, no third-party code. Built and verified on Win64.",
+	"Category": "Audio",
+	"CreatedBy": "Silvan Teufel",
+	"CreatedByURL": "https://silvan.teufel-engineering.com",
+	"DocsURL": "https://wiki.teufel-engineering.com/en/PulseScore/documentation",
+	"SupportURL": "mailto:teufelsilvan@gmail.com",
+	"CanContainContent": true,
+	"IsBetaVersion": false,
+	"IsExperimentalVersion": false,
+	"Installed": false,
+	"Modules": [
+		{
+			"Name": "PulseScore",
+			"Type": "Runtime",
+			"LoadingPhase": "PreDefault",
+			"PlatformAllowList": [
+				"Win64"
+			]
+		}
+	]
+}
